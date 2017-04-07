@@ -2,16 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Hello World</title>
-    <script src="sdk/scripts/VSS.SDK.js"></script>
+    <title>GitFlow Hub</title>
+    <script src="lib/VSS.SDK.min.js"></script>
 </head>
 
 <body>
     <script type="text/javascript">
-        VSS.init();
+        // Initialize the VSS sdk
+        VSS.init({
+            usePlatformScripts: true,
+            usePlatformStyles: true
+        });
+
+        VSS.require(["dist/app"], function (app) {
+
+        });
     </script>
-    <button id="expand">Expand</button>
-    <button id="collapse">Collapse</button>
 
     <div class="my-splitter horizontal splitter">
         <div class="leftPane">
@@ -22,6 +28,7 @@
             Right pane content
         </div>
     </div>
+
     <script type="text/javascript">
         VSS.notifyLoadSucceeded();
     </script>

@@ -4,7 +4,11 @@
   "description": "This is a VSTS extension that enables you to provide GitFlow functionality from a manageable dashboard",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p .",
+    "postbuild": "npm run package",
+    "package": "tfx extension create",
+    "gallery-publish": "tfx extension publish --rev-version",
+    "clean": "rimraf ./dist && rimraf ./*.vsix"
   },
   "repository": {
     "type": "git",
@@ -21,6 +25,7 @@
   },
   "homepage": "https://github.com/cwoolum/vsts-gitflow#readme",
   "devDependencies": {
+    "typescript": "~2.2.2",
     "vss-web-extension-sdk": "^2.114.0"
   }
 }

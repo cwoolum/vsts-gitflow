@@ -28,6 +28,10 @@
   version "2.1.29"
   resolved "https://registry.yarnpkg.com/@types/requirejs/-/requirejs-2.1.29.tgz#bc48bc833c079c2c24ba6afbca6d3a03b3f4e2f3"
 
+typescript@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
+
 vss-web-extension-sdk@^2.114.0:
   version "2.114.0"
   resolved "https://registry.yarnpkg.com/vss-web-extension-sdk/-/vss-web-extension-sdk-2.114.0.tgz#434c9bc3fc5bfed40d192a47d12ba4ac4a51c22d"
