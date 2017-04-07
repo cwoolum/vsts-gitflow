@@ -1,16 +1,14 @@
     {
         "manifestVersion": 1,
         "id": "vsts-gitflow",
-        "version": "0.1.0",
+        "version": "0.1.5",
         "name": "VSTS GitFlow",
         "description": "",
-        "publisher": "Christopher Woolum",
+        "publisher": "ChrisWoolum",
         "targets": [{
             "id": "Microsoft.VisualStudio.Services"
         }],
-        "icons": {
-            "default": "images/logo.png"
-        },
+        
         "contributions": [{
             "id": "VstsGitFlow.Hub",
             "type": "ms.vss-web.hub",
@@ -28,20 +26,17 @@
             "vso.work"
         ],
         "files": [{
-                "path": "gitflow-config.html",
+                "path": "dist",
                 "addressable": true
             },
             {
-                "path": "scripts",
+                "path": "static",
                 "addressable": true
             },
             {
-                "path": "sdk/scripts",
-                "addressable": true
-            },
-            {
-                "path": "images/logo.png",
-                "addressable": true
+                "path": "node_modules/vss-web-extension-sdk/lib",
+                "addressable": true,
+                "packagePath": "lib"
             }
         ]
     }
