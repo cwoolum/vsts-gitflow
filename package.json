@@ -1,0 +1,26 @@
+{
+  "name": "vsts-gitflow",
+  "version": "1.0.0",
+  "description": "This is a VSTS extension that enables you to provide GitFlow functionality from a manageable dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwoolum/vsts-gitflow.git"
+  },
+  "keywords": [
+    "vsts",
+    "gitflow"
+  ],
+  "author": "Christopher Woolum",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cwoolum/vsts-gitflow/issues"
+  },
+  "homepage": "https://github.com/cwoolum/vsts-gitflow#readme",
+  "devDependencies": {
+    "vss-web-extension-sdk": "^2.114.0"
+  }
+}

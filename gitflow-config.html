@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Hello World</title>
+    <script src="sdk/scripts/VSS.SDK.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        VSS.init();
+    </script>
+    <button id="expand">Expand</button>
+    <button id="collapse">Collapse</button>
+
+    <div class="my-splitter horizontal splitter">
+        <div class="leftPane">
+            Left pane content
+        </div>
+        <div class="handleBar"></div>
+        <div class="rightPane">
+            Right pane content
+        </div>
+    </div>
+    <script type="text/javascript">
+        VSS.notifyLoadSucceeded();
+    </script>
+</body>
+
+</html>
