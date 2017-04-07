@@ -1,7 +1,7 @@
     {
         "manifestVersion": 1,
         "id": "vsts-gitflow",
-        "version": "0.1.5",
+        "version": "0.1.18",
         "name": "VSTS GitFlow",
         "description": "",
         "publisher": "ChrisWoolum",
@@ -14,12 +14,12 @@
             "type": "ms.vss-web.hub",
             "description": "Adds a 'GitFlow' hub to the Work hub group.",
             "targets": [
-                "ms.vss-work-web.build-hub-group"
+                "ms.vss-work-web.work-hub-group"
             ],
             "properties": {
-                "name": "Hello",
+                "name": "GitFlow",
                 "order": 99,
-                "uri": "hello-world.html"
+                "uri": "static/gitflow-config.html"
             }
         }],
         "scopes": [

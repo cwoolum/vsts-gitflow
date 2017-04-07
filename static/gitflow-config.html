@@ -3,7 +3,8 @@
 
 <head>
     <title>GitFlow Hub</title>
-    <script src="lib/VSS.SDK.min.js"></script>
+    <link href="gitflow-config.css" rel="stylesheet"></link>
+    <script src="../lib/VSS.SDK.min.js"></script>
 </head>
 
 <body>
@@ -14,20 +15,42 @@
             usePlatformStyles: true
         });
 
-        VSS.require(["dist/gitflow-config"], function (app) {
-
+        VSS.require(["../dist/gitflow-config"], function (app) {
+            let gitflowConfig = new app.GitflowConfig;
+            gitflowConfig.buildGrid();
+            gitflowConfig.setupDialog();
         });
     </script>
 
     <div class="my-splitter horizontal splitter">
+
         <div class="leftPane">
-            <div id="build-grid-container">
+            <button id="show">Add person</button>
+           
+            <ul class="person-list"></ul>
+            <div class="dialog-content">
+                <h2 id="header">Registration Form</h2>
+                <p>
+                    <label>Name:</label>
+                    <input id="inpName" />
+                </p>
+                <p>
+                    <label>DOB:</label>
+                    <input id="inpDob" />
+                </p>
+                <p>
+                    <label>Email:</label>
+                    <input id="inpEmail" />
+                </p>
+            </div>
+
+            <div class="build-grid-container">
 
             </div>
         </div>
         <div class="handleBar"></div>
         <div class="rightPane">
-            Right pane content
+            <button style="float:right">New</button> Right pane content
         </div>
     </div>
 

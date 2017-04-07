@@ -1,0 +1,7 @@
+.my-splitter {
+    position: static !important;
+}
+
+.dialog-content {
+    display: none;
+}
