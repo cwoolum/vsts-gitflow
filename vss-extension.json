@@ -1,7 +1,7 @@
     {
         "manifestVersion": 1,
         "id": "vsts-gitflow",
-        "version": "0.1.18",
+        "version": "0.1.20",
         "name": "VSTS GitFlow",
         "description": "",
         "publisher": "ChrisWoolum",
@@ -23,7 +23,8 @@
             }
         }],
         "scopes": [
-            "vso.work"
+            "vso.build",
+            "vso.code_manage"
         ],
         "files": [{
                 "path": "dist",

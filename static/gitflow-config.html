@@ -8,6 +8,52 @@
 </head>
 
 <body>
+    <div class="my-splitter horizontal splitter">
+
+        <div class="leftPane widget">
+            <button id="show">New</button>
+
+            <ul class="person-list"></ul>
+            <div class="dialog-content">
+                <h2 id="header">Add Repository</h2>
+                <div>Please sleect a Repo and Build to configure for GitFlow. You will also need to specify a starting
+                    version.
+                </div>
+                <div class="dropdown" id="repo-dropdown">
+                    <label>Repository</label>
+                    <div class="wrapper">
+                        <select>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="dropdown" id="build-dropdown">
+                    <label>Associated Build</label>
+                    <div class="wrapper">
+                        <select>
+                        <option>Select a Matching Build</option>
+                    </select>
+                    </div>
+                </div>
+
+                <p>
+                    <label>Email:</label>
+                    <input id="inpEmail" />
+                </p>
+            </div>
+
+            <div class="build-grid-container">
+
+            </div>
+        </div>
+        <div class="handleBar"></div>
+        <div class="rightPane widget">
+            <h2 class="title">Manage Release</h2>
+            <button style="float:right">New</button> Right pane content
+        </div>
+    </div>
+
     <script type="text/javascript">
         // Initialize the VSS sdk
         VSS.init({
@@ -21,38 +67,6 @@
             gitflowConfig.setupDialog();
         });
     </script>
-
-    <div class="my-splitter horizontal splitter">
-
-        <div class="leftPane">
-            <button id="show">Add person</button>
-           
-            <ul class="person-list"></ul>
-            <div class="dialog-content">
-                <h2 id="header">Registration Form</h2>
-                <p>
-                    <label>Name:</label>
-                    <input id="inpName" />
-                </p>
-                <p>
-                    <label>DOB:</label>
-                    <input id="inpDob" />
-                </p>
-                <p>
-                    <label>Email:</label>
-                    <input id="inpEmail" />
-                </p>
-            </div>
-
-            <div class="build-grid-container">
-
-            </div>
-        </div>
-        <div class="handleBar"></div>
-        <div class="rightPane">
-            <button style="float:right">New</button> Right pane content
-        </div>
-    </div>
 
     <script type="text/javascript">
         VSS.notifyLoadSucceeded();
