@@ -1,6 +1,6 @@
 import Dialogs = require("VSS/Controls/Dialogs");
 
-import * as dialogTemplate from '../static/new-repo-dialog.html!text';
+import * as dialogTemplate from '../../static/new-repo-dialog.html!text';
 
 export class NewRepoDialog{
  setupDialog() {
