@@ -36,4 +36,8 @@ export class DataService {
             return dataService.setValue('configuredrepos', repoConfigs);
         });
     }
+
+    getAllRepositories() {
+        return this._client.getRepositories();
+    }
 }
