@@ -14,7 +14,10 @@ export class GitflowConfig {
       var gridOptions: Grids.IGridOptions = {
         height: "100%",
         width: "100%",
-        source: response.map(repo => repo.name),
+        source: response.map(repo => {
+          console.log(repo);
+          return repo.name;
+        }),
         columns: [
           { text: "Name", index: 0 }
         ]

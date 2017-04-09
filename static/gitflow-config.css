@@ -2,6 +2,19 @@
     position: static !important;
 }
 
+.leftPane,
+.rightPane {
+    padding: 10px;
+}
+
 .dialog-content {
     display: none;
+}
+
+.pull-right {
+    float: right;
+}
+
+.build-grid-container .grid {
+    position: absolute;
 }
