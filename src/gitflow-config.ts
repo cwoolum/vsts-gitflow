@@ -3,12 +3,16 @@ import Grids = require("VSS/Controls/Grids");
 
 import RestClient = require("TFS/VersionControl/GitRestClient");
 import { DataService } from "./data-service";
+import { NewRepoDialog } from "./dialog/new-repo-dialog";
 
 export class GitflowConfig {
   dataService: DataService;
 
   constructor() {
     this.dataService = new DataService();
+
+    let repoDialog= new NewRepoDialog();
+    repoDialog.setupDialog();
   }
 
   buildGrid() {

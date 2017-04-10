@@ -1,12 +1,15 @@
 import { IRepoSettings } from "./dto/repo-settings";
 import RestClient = require("TFS/VersionControl/GitRestClient");
 import { IRepoListItem } from "./dto/repo-list";
+import BuildHttpClient = require("TFS/Build/RestClient");
 
 export class DataService {
     _client: RestClient.GitHttpClient3_1;
+    _buildClient: BuildHttpClient.BuildHttpClient3_1;
 
     constructor() {
         this._client = RestClient.getClient();
+        this._buildClient = BuildHttpClient.getClient();
     }
 
     fetchConfiguredRepos() {
@@ -39,5 +42,9 @@ export class DataService {
 
     getAllRepositories() {
         return this._client.getRepositories();
+    }
+
+    getAllBuildDefinitions() {
+        return this._buildClient.getDefinitions();
     }
 }

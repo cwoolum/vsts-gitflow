@@ -1,27 +1,38 @@
 <div class="dialog-content">
-    <h2 id="header">Add Repository</h2>
-    <div>Please sleect a Repo and Build to configure for GitFlow. You will also need to specify a starting version.
+    <div>Please select a Repo and Build to configure for GitFlow. You will also need to specify a starting version.
     </div>
     <div class="dropdown" id="repo-dropdown">
         <label>Repository</label>
         <div class="wrapper">
-            <select>
-
-                        </select>
+            <select class="repository-select">
+                      <option>Select a Repositoy</option>
+                    </select>
         </div>
     </div>
 
     <div class="dropdown" id="build-dropdown">
         <label>Associated Build</label>
         <div class="wrapper">
-            <select>
-                        <option>Select a Matching Build</option>
+            <select class="build-select">
+                      <option>Select a Matching Build</option>
                     </select>
         </div>
     </div>
 
-    <p>
-        <label>Email:</label>
-        <input id="inpEmail" />
-    </p>
+    <div>
+        <div class="version-picker">
+            <div>
+                <span>Major</span>
+                <input/>
+            </div>
+            <div>
+                <span>Minor</span>
+                <input/>
+            </div>
+            <div>
+                <span>Patch</span>
+                <input/>
+            </div>
+        </div>
+    </div>
 </div>

@@ -4,14 +4,16 @@
 <head>
     <title>GitFlow Hub</title>
     <link href="gitflow-config.css" rel="stylesheet"></link>
-    <script src="../lib/VSS.SDK.min.js"></script>
+    <script src="../lib/VSS.SDK.js"></script>
 </head>
 
 <body>
+
+
     <div class="my-splitter horizontal splitter">
 
         <div class="leftPane widget">
-            <button class="pull-right">New Repo</button>
+            <button id="new-repo-btn" class="pull-right">New Repo</button>
             <h2 class="title">Configured Repos</h2>
 
 
@@ -32,13 +34,15 @@
             usePlatformStyles: true
         });
 
+        VSS.require("TFS/Dashboards/WidgetHelpers", function (WidgetHelpers) {
+            WidgetHelpers.IncludeWidgetStyles();
+        });
+
         VSS.require(["../dist/gitflow-config"], function (app) {
-            let gitflowConfig = new app.GitflowConfig;
+            let gitflowConfig = new app.GitflowConfig();
             gitflowConfig.buildGrid();
         });
-    </script>
 
-    <script type="text/javascript">
         VSS.notifyLoadSucceeded();
     </script>
 </body>

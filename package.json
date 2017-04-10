@@ -25,7 +25,10 @@
   },
   "homepage": "https://github.com/cwoolum/vsts-gitflow#readme",
   "devDependencies": {
-    "typescript": "~2.2.2",
+    "typescript": "~2.2.2"
+  },
+  "dependencies": {
+    "require-html": "^1.0.0",
     "vss-web-extension-sdk": "^2.114.0"
   }
 }

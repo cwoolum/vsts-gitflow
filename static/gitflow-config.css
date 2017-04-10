@@ -18,3 +18,19 @@
 .build-grid-container .grid {
     position: absolute;
 }
+
+.version-picker {
+    display: flex;
+    flex-direction: row;
+}
+
+.version-picker div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2px;
+}
+
+.version-picker input {
+    width: 50px;
+}
