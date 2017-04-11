@@ -1,8 +1,13 @@
 import { DataService } from '../data-service';
 import Dialogs = require("VSS/Controls/Dialogs");
 
-// Can't inport HTML.... need a better solution for template loading
-//import dialogTemplate = require('../../static/new-repo-dialog.html!text');
+interface SaveRepoConfig {
+  repositoryId: string;
+  currentVersionMajor: number;
+  currentVersionMinor: number;
+  currentVersionPatch: number;
+  repoName: string;
+}
 
 export class NewRepoDialog {
   dataService: DataService;
@@ -12,44 +17,64 @@ export class NewRepoDialog {
 
   setupDialog() {
 
-    $.get("../static/new-repo-dialog.html", (dialog) => {
-      let $dialog = $(dialog);
+    $("#new-repo-btn").click(() => {
+      $.get("../static/new-repo-dialog.html", (dialog) => {
+        let $dialog = $(dialog);
 
-      $("#new-repo-btn").click(() => {
         this.buildRepositorySelect($dialog).then(() => {
-          this.buildBuildSelect($dialog).then(() => {
+          //this.buildBuildSelect($dialog).then(() => {
+          var dialog = Dialogs.show(Dialogs.ModalDialog, <Dialogs.IModalDialogOptions>{
+            width: 300,
+            title: "Add Repository",
+            content: $dialog,
+            okCallback: (result: SaveRepoConfig) => {
+              this.dataService.fetchConfiguredRepos().then(repoList => {
+                repoList[result.repositoryId] = {
+                  repoId: result.repositoryId,
+                  repoName: result.repoName,
+                  currentVersion: result.currentVersionMajor + '.' + result.currentVersionMinor + '.' + result.currentVersionPatch
+                };
 
-
-            var dialog = Dialogs.show(Dialogs.ModalDialog, <Dialogs.IModalDialogOptions>{
-              width: 300,
-              title: "Add Repository",
-              content: $dialog,
-              okCallback: (result: any) => {
-                $("<li />").text(result).appendTo(".person-list");
-              }
-            });
-
-            var dialogElement = dialog.getElement();
-            // Monitor input changes
-            dialogElement.on("input", "input", (e: JQueryEventObject) => {
-              // Set dialog result
-              dialog.setDialogResult(getValue(dialogElement));
-              // Update enabled status of ok button
-              dialog.updateOkButton(!isEmpty(dialogElement));
-            });
+                this.dataService.saveConfigurationForRepository(result.repositoryId, {
+                  repositoryId: result.repositoryId,
+                  currentVersionMajor: result.currentVersionMajor,
+                  currentVersionMinor: result.currentVersionMinor,
+                  currentVersionPatch: result.currentVersionPatch
+                }).then(() => this.dataService.saveConfiguredRepos(repoList));
+              });
+            }
           });
+
+          var dialogElement = dialog.getElement();
+          // Monitor input changes
+          dialogElement.on("input", "input", (e: JQueryEventObject) => {
+            // Set dialog result
+            dialog.setDialogResult(getValue(dialogElement));
+            // Update enabled status of ok button
+            dialog.updateOkButton(!isEmpty(dialogElement));
+          });
+          //});
         });
 
         function isEmpty(parent: JQuery): boolean {
-          return parent.find("input").filter((index: number, el: Element) => {
+          let inputsFilled = parent.find("input").filter((index: number, el: Element) => {
             return !$(el).val();
           }).length > 0;
+
+          let repoEmpty = parent.find('.repository-select').val() == undefined ||
+            parent.find('.repository-select').val() == '';
+
+          return inputsFilled || repoEmpty;
         }
 
-        function getValue(parent: JQuery): string {
-          return parent.find("input").map((index: number, el: Element) => {
-            return $(el).val();
-          }).get().join(" - ");
+        function getValue(parent: JQuery): SaveRepoConfig {
+          return <SaveRepoConfig>{
+            repositoryId: parent.find('.repository-select').val(),
+            repoName: parent.find('.repository-select').find('option:selected').text(),
+            currentVersionMajor: parent.find('#major').val(),
+            currentVersionMinor: parent.find('#minor').val(),
+            currentVersionPatch: parent.find('#patch').val()
+          }
         }
       });
     });

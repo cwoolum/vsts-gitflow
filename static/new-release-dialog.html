@@ -1,0 +1,25 @@
+<div class="dialog-content">
+    <div class="margin-top">
+        <p>Select the type of release you would like to create.</p>
+        <fieldset class="radio" id="display-options">
+            <legend>Release Type </legend>
+
+            <input type="radio" id="radio-option1" value="major" name="radio" checked="true">
+            <label for="radio-option1">Major</label>
+            <br/>
+
+            <input type="radio" id="radio-option2" value="minor" name="radio">
+            <label for="radio-option2">Minor</label>
+            <br/>
+            
+            <input type="radio" id="radio-option3" value="patch" name="radio">
+            <label for="radio-option3">Patch</label>
+            <br/>
+        </fieldset>
+    </div>
+
+    <div>
+        The next release will be
+        <span id="next-version"></span>
+    </div>
+</div>

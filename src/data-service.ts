@@ -1,6 +1,6 @@
 import { IRepoSettings } from "./dto/repo-settings";
 import RestClient = require("TFS/VersionControl/GitRestClient");
-import { IRepoListItem } from "./dto/repo-list";
+import { IRepoListItem, RepoListDictionary } from "./dto/repo-list";
 import BuildHttpClient = require("TFS/Build/RestClient");
 
 export class DataService {
@@ -14,8 +14,10 @@ export class DataService {
 
     fetchConfiguredRepos() {
         return VSS.getService(VSS.ServiceIds.ExtensionData).then((dataService: IExtensionDataService) => {
-            return dataService.getValue<Array<IRepoListItem>>('configuredrepos').then((doc) => {
-                return doc;
+            return dataService.getValue<RepoListDictionary>('configuredrepos').then((doc) => {
+                return doc || {};
+            }, err => {
+                return {};
             });
         });
     }
@@ -34,7 +36,7 @@ export class DataService {
         });
     }
 
-    saveConfiguredRepos(repoConfigs: Array<IRepoListItem>) {
+    saveConfiguredRepos(repoConfigs: RepoListDictionary) {
         return VSS.getService(VSS.ServiceIds.ExtensionData).then((dataService: IExtensionDataService) => {
             return dataService.setValue('configuredrepos', repoConfigs);
         });

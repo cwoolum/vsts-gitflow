@@ -1,3 +1,4 @@
+import { NewReleaseDialog } from './dialog/new-release-dialog';
 import Controls = require("VSS/Controls");
 import Grids = require("VSS/Controls/Grids");
 
@@ -11,21 +12,24 @@ export class GitflowConfig {
   constructor() {
     this.dataService = new DataService();
 
-    let repoDialog= new NewRepoDialog();
+    let repoDialog = new NewRepoDialog();
     repoDialog.setupDialog();
+
+    let releaseDialog = new NewReleaseDialog();
+    releaseDialog.setupDialog();
   }
 
   buildGrid() {
-    this.dataService.fetchConfiguredRepos().then(response => {
+    return this.dataService.fetchConfiguredRepos().then(response => {
       var container = $(".build-grid-container");
 
       let mappedResponse = [];
 
       if (response) {
-        mappedResponse = response.map(repo => {
+        mappedResponse = Object.keys(response).map(repoId => {
           return {
-            name: repo.repoName,
-            version: repo.currentVersion
+            name: response[repoId].repoName,
+            version: response[repoId].currentVersion
           };
         });
       }

@@ -8,8 +8,6 @@
 </head>
 
 <body>
-
-
     <div class="my-splitter horizontal splitter">
 
         <div class="leftPane widget">
@@ -24,6 +22,7 @@
         <div class="handleBar"></div>
         <div class="rightPane widget">
             <h2 class="title">Manage Release</h2>
+            <button id="new-release-btn" class="pull-right">Create New Release</button>
         </div>
     </div>
 
@@ -36,14 +35,15 @@
 
         VSS.require("TFS/Dashboards/WidgetHelpers", function (WidgetHelpers) {
             WidgetHelpers.IncludeWidgetStyles();
+            WidgetHelpers.IncludeWidgetConfigurationStyles();
         });
 
         VSS.require(["../dist/gitflow-config"], function (app) {
             let gitflowConfig = new app.GitflowConfig();
-            gitflowConfig.buildGrid();
+            gitflowConfig.buildGrid().then(() => {
+                VSS.notifyLoadSucceeded();
+            });
         });
-
-        VSS.notifyLoadSucceeded();
     </script>
 </body>
 
