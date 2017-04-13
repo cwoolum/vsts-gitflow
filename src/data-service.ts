@@ -14,6 +14,11 @@ export class DataService {
 
     createNewFeatureBranch(newVersion: string, repoId: string) {
         return this._client.getBranch(repoId, 'develop').then(branchInfo => {
+            // return this._client.updateRefs([<any>{
+            //     oldObjectId: branchInfo.commit.commitId,
+            //     name: 'refs/heads/' + newVersion,
+            //     sha1IdString: branchInfo.commit.commitId
+            // }], repoId);
             return this._client.createPush(<any>{
                 refUpdates: [{
                     name: 'refs/heads/' + newVersion,
@@ -21,18 +26,18 @@ export class DataService {
                 }],
                 commits: [{
                     "comment": "Updating active tasks, but saving in a new branch.",
-                    // "changes": [
-                    //     {
-                    //         "changeType": "add",
-                    //         "item": {
-                    //             "path": "/activetasks.md"
-                    //         },
-                    //         "newContent": {
-                    //             "content": "# My Active Tasks\n\n* Item 1\n* Item 2\n* Item 3\n* Item 4\n* Item 5\n",
-                    //             "contentType": "rawtext"
-                    //         }
-                    //     }
-                    // ]
+                    "changes": [
+                        {
+                            "changeType": "add",
+                            "item": {
+                                "path": "/" + newVersion + ".md"
+                            },
+                            "newContent": {
+                                "content": "Delete me!",
+                                "contentType": "rawtext"
+                            }
+                        }
+                    ]
                 }]
             }, repoId);
         })
