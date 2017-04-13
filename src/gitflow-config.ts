@@ -53,14 +53,22 @@ export class GitflowConfig {
         ]
       };
 
-      this.grid = Controls.create(Grids.Grid, container, gridOptions, );
+      this.grid = Controls.create(Grids.Grid, container, gridOptions);
 
-      this.grid.onRowClick(event => {
-        $('#manage-release').hide();
+      var checkExist = setInterval(() => {
         this.setSelectedRepo();
-      });
+        
+        if ($('.grid-row').length) {
+          $('.grid-row').click((event) => {
+            $('#manage-release').hide();
+            this.setSelectedRepo();
+          });
 
-      this.setSelectedRepo();
+          clearInterval(checkExist);
+        }
+      }, 100);
+
+      
     });
 
   }

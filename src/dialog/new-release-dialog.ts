@@ -25,14 +25,19 @@ export class NewReleaseDialog {
         width: 300,
         title: "Create New Release",
         content: $dialog,
-        okCallback: (result: SaveRepoConfig) => {
-
+        okCallback: (result: string) => {
+          this.dataService.createNewFeatureBranch(result, repoSettings.repositoryId)
+            .then(response => {
+              console.log(response);
+            }, err => {
+              alert(err.message);
+            });
         }
       });
 
       var dialogElement = dialog.getElement();
       // Monitor input changes
-      dialogElement.find('input[type=radio]').click(event => {
+      dialogElement.find('input[type=radio]').click(function (event) {
         let nextVersion = '';
 
         switch ($(this).val()) {
@@ -50,7 +55,7 @@ export class NewReleaseDialog {
         dialogElement.find('#next-version').html(nextVersion);
 
         // Set dialog result
-        dialog.setDialogResult(getValue(dialogElement));
+        dialog.setDialogResult(nextVersion);
         // Update enabled status of ok button
         dialog.updateOkButton(true);
       });
@@ -58,15 +63,6 @@ export class NewReleaseDialog {
       let nextVersion = (repoSettings.currentVersionMajor + 1) + '.' + repoSettings.currentVersionMinor + '.' + repoSettings.currentVersionPatch;
       dialogElement.find('#next-version').html(nextVersion);
 
-      function getValue(parent: JQuery): SaveRepoConfig {
-        return <SaveRepoConfig>{
-          repositoryId: parent.find('.repository-select').val(),
-          repoName: parent.find('.repository-select').find('option:selected').text(),
-          currentVersionMajor: parent.find('#major').val(),
-          currentVersionMinor: parent.find('#minor').val(),
-          currentVersionPatch: parent.find('#patch').val()
-        }
-      }
     });
 
   }

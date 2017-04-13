@@ -12,6 +12,33 @@ export class DataService {
         this._buildClient = BuildHttpClient.getClient();
     }
 
+    createNewFeatureBranch(newVersion: string, repoId: string) {
+        return this._client.getBranch(repoId, 'develop').then(branchInfo => {
+            return this._client.createPush(<any>{
+                refUpdates: [{
+                    name: 'refs/heads/' + newVersion,
+                    oldObjectId: branchInfo.commit.commitId
+                }],
+                commits: [{
+                    "comment": "Updating active tasks, but saving in a new branch.",
+                    // "changes": [
+                    //     {
+                    //         "changeType": "add",
+                    //         "item": {
+                    //             "path": "/activetasks.md"
+                    //         },
+                    //         "newContent": {
+                    //             "content": "# My Active Tasks\n\n* Item 1\n* Item 2\n* Item 3\n* Item 4\n* Item 5\n",
+                    //             "contentType": "rawtext"
+                    //         }
+                    //     }
+                    // ]
+                }]
+            }, repoId);
+        })
+
+    }
+
     fetchConfiguredRepos() {
         return VSS.getService(VSS.ServiceIds.ExtensionData).then((dataService: IExtensionDataService) => {
             return dataService.getValue<RepoListDictionary>('configuredrepos').then((doc) => {
