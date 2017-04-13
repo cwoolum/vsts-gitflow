@@ -1,3 +1,4 @@
+import { IRepoSettings } from './dto/repo-settings';
 import { NewReleaseDialog } from './dialog/new-release-dialog';
 import Controls = require("VSS/Controls");
 import Grids = require("VSS/Controls/Grids");
@@ -8,6 +9,8 @@ import { NewRepoDialog } from "./dialog/new-repo-dialog";
 
 export class GitflowConfig {
   dataService: DataService;
+  grid: Grids.Grid;
+  repoSettings: IRepoSettings;
 
   constructor() {
     this.dataService = new DataService();
@@ -16,7 +19,10 @@ export class GitflowConfig {
     repoDialog.setupDialog();
 
     let releaseDialog = new NewReleaseDialog();
-    releaseDialog.setupDialog();
+
+    $("#new-release-btn").click(() => {
+      releaseDialog.setupDialog(this.repoSettings);
+    });
   }
 
   buildGrid() {
@@ -29,7 +35,8 @@ export class GitflowConfig {
         mappedResponse = Object.keys(response).map(repoId => {
           return {
             name: response[repoId].repoName,
-            version: response[repoId].currentVersion
+            version: response[repoId].currentVersion,
+            repoId: repoId
           };
         });
       }
@@ -38,22 +45,34 @@ export class GitflowConfig {
         height: "100%",
         width: "100%",
         source: mappedResponse,
+        lastCellFillsRemainingContent: true,
         columns: [
+          { index: 'repoId', hidden: true },
           { text: "Name", index: 'name' },
-          { text: "Current Version", index: 'version' }
+          { text: "Current Version", index: 'version', width: 200 }
         ]
       };
 
-      Controls.create(Grids.Grid, container, gridOptions);
+      this.grid = Controls.create(Grids.Grid, container, gridOptions, );
+
+      this.grid.onRowClick(event => {
+        $('#manage-release').hide();
+        this.setSelectedRepo();
+      });
+
+      this.setSelectedRepo();
     });
 
   }
 
-  private buildSource() {
-    var result = [], i;
-    for (i = 0; i < 100; i++) {
-      result[result.length] = [i, "Column 2 text" + i];
-    }
-    return result;
+  private setSelectedRepo() {
+    let selectedIndex = this.grid.getSelectedDataIndex();
+    let item = this.grid._dataSource[selectedIndex];
+    this.dataService.fetchConfigurationForRepository(item.repoId).then(repoSettings => {
+      this.repoSettings = repoSettings;
+      if (repoSettings.branchId) {
+        $('#manage-release').show();
+      }
+    });
   }
 }

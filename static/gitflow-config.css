@@ -38,3 +38,7 @@
 .margin-top {
     margin-top: 5px;
 }
+
+#manage-release {
+    display: none;
+}

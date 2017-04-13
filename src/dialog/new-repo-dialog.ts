@@ -71,9 +71,9 @@ export class NewRepoDialog {
           return <SaveRepoConfig>{
             repositoryId: parent.find('.repository-select').val(),
             repoName: parent.find('.repository-select').find('option:selected').text(),
-            currentVersionMajor: parent.find('#major').val(),
-            currentVersionMinor: parent.find('#minor').val(),
-            currentVersionPatch: parent.find('#patch').val()
+            currentVersionMajor: Number(parent.find('#major').val()),
+            currentVersionMinor: Number(parent.find('#minor').val()),
+            currentVersionPatch: Number(parent.find('#patch').val())
           }
         }
       });

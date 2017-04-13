@@ -7,7 +7,7 @@
     <script src="../lib/VSS.SDK.js"></script>
 </head>
 
-<body>
+<body class="bowtie">
     <div class="my-splitter horizontal splitter">
 
         <div class="leftPane widget">
@@ -21,8 +21,50 @@
         </div>
         <div class="handleBar"></div>
         <div class="rightPane widget">
-            <h2 class="title">Manage Release</h2>
             <button id="new-release-btn" class="pull-right">Create New Release</button>
+
+            <h2 class="title">Manage Release</h2>
+
+            <div id="manage-release">
+                <div>
+                    Next Version: <strong id="next-version-number"></strong>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>
+                            Commits Since Creation
+                        </legend>
+                        <table>
+                            <thead>
+                                <th>Commit Hash</th>
+                                <th>Comments</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div>
+                    <fieldset>
+                        <legend>
+                            Forward Commits In Master
+                        </legend>
+                        <table>
+                            <thead>
+                                <th>Commit Hash</th>
+                                <th>Comments</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div>
+                    <button>Complete</button>
+                </div>
+            </div>
         </div>
     </div>
 

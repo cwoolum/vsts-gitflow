@@ -6,4 +6,6 @@ export class IRepoSettings {
     currentVersionMajor: number;
     currentVersionMinor: number;
     currentVersionPatch: number;
+    nextVersion?: string;
+    branchId?: string;
 }
