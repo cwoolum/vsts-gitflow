@@ -22,38 +22,38 @@ export class NewRepoDialog {
         let $dialog = $(dialog);
 
         this.buildRepositorySelect($dialog).then(() => {
-          //this.buildBuildSelect($dialog).then(() => {
-          var dialog = Dialogs.show(Dialogs.ModalDialog, <Dialogs.IModalDialogOptions>{
-            width: 300,
-            title: "Add Repository",
-            content: $dialog,
-            okCallback: (result: SaveRepoConfig) => {
-              this.dataService.fetchConfiguredRepos().then(repoList => {
-                repoList[result.repositoryId] = {
-                  repoId: result.repositoryId,
-                  repoName: result.repoName,
-                  currentVersion: result.currentVersionMajor + '.' + result.currentVersionMinor + '.' + result.currentVersionPatch
-                };
+          this.buildBuildSelect($dialog).then(() => {
+            var dialog = Dialogs.show(Dialogs.ModalDialog, <Dialogs.IModalDialogOptions>{
+              width: 300,
+              title: "Add Repository",
+              content: $dialog,
+              okCallback: (result: SaveRepoConfig) => {
+                this.dataService.fetchConfiguredRepos().then(repoList => {
+                  repoList[result.repositoryId] = {
+                    repoId: result.repositoryId,
+                    repoName: result.repoName,
+                    currentVersion: result.currentVersionMajor + '.' + result.currentVersionMinor + '.' + result.currentVersionPatch
+                  };
 
-                this.dataService.saveConfigurationForRepository(result.repositoryId, {
-                  repositoryId: result.repositoryId,
-                  currentVersionMajor: result.currentVersionMajor,
-                  currentVersionMinor: result.currentVersionMinor,
-                  currentVersionPatch: result.currentVersionPatch
-                }).then(() => this.dataService.saveConfiguredRepos(repoList));
-              });
-            }
-          });
+                  this.dataService.saveConfigurationForRepository(result.repositoryId, {
+                    repositoryId: result.repositoryId,
+                    currentVersionMajor: result.currentVersionMajor,
+                    currentVersionMinor: result.currentVersionMinor,
+                    currentVersionPatch: result.currentVersionPatch
+                  }).then(() => this.dataService.saveConfiguredRepos(repoList));
+                });
+              }
+            });
 
-          var dialogElement = dialog.getElement();
-          // Monitor input changes
-          dialogElement.on("input", "input", (e: JQueryEventObject) => {
-            // Set dialog result
-            dialog.setDialogResult(getValue(dialogElement));
-            // Update enabled status of ok button
-            dialog.updateOkButton(!isEmpty(dialogElement));
+            var dialogElement = dialog.getElement();
+            // Monitor input changes
+            dialogElement.on("input", "input", (e: JQueryEventObject) => {
+              // Set dialog result
+              dialog.setDialogResult(getValue(dialogElement));
+              // Update enabled status of ok button
+              dialog.updateOkButton(!isEmpty(dialogElement));
+            });
           });
-          //});
         });
 
         function isEmpty(parent: JQuery): boolean {
