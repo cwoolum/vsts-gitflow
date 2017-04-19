@@ -1,4 +1,5 @@
 import { IRepoSettings } from "./dto/repo-settings";
+import { GitVersionType } from "TFS/VersionControl/Contracts";
 import RestClient = require("TFS/VersionControl/GitRestClient");
 import { IRepoListItem, RepoListDictionary } from "./dto/repo-list";
 import BuildHttpClient = require("TFS/Build/RestClient");
@@ -39,9 +40,23 @@ export class DataService {
                         }
                     ]
                 }]
-            }, repoId);
-        })
+            }, repoId).then(response => {
+                return this.fetchConfigurationForRepository(repoId).then(repoConfig => {
+                    repoConfig.branchId = newVersion;
+                    return this.saveConfigurationForRepository(repoId, repoConfig);
+                });
+            });
+        });
+    }
 
+    fetchCommitsForFeatureBranch(repoId: string, branchName: string, fromDate: string) {
+        return this._client.getCommits(repoId, <any>{
+            compareVersion: {
+                version: branchName,
+                versionType: GitVersionType.Branch
+            },
+            fromDate: fromDate
+        });
     }
 
     fetchConfiguredRepos() {

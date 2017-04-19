@@ -21,7 +21,7 @@ export class GitflowConfig {
     let releaseDialog = new NewReleaseDialog();
 
     $("#new-release-btn").click(() => {
-      releaseDialog.setupDialog(this.repoSettings);
+      releaseDialog.setupDialog(this.repoSettings, this.setSelectedRepo);
     });
   }
 
@@ -57,7 +57,7 @@ export class GitflowConfig {
 
       var checkExist = setInterval(() => {
         this.setSelectedRepo();
-        
+
         if ($('.grid-row').length) {
           $('.grid-row').click((event) => {
             $('#manage-release').hide();
@@ -67,10 +67,7 @@ export class GitflowConfig {
           clearInterval(checkExist);
         }
       }, 100);
-
-      
     });
-
   }
 
   private setSelectedRepo() {
@@ -80,7 +77,20 @@ export class GitflowConfig {
       this.repoSettings = repoSettings;
       if (repoSettings.branchId) {
         $('#manage-release').show();
+        $('#new-release-btn').hide();
+
+        $('#next-version-number').html(repoSettings.branchId);
+        this.getCommits(item.repoId, repoSettings.branchId, new Date().toISOString());
+      } else {
+        $('#manage-release').hide();
+        $('#new-release-btn').show();
       }
+    });
+  }
+
+  private getCommits(repoId: string, branchName: string, fromDate: string) {
+    this.dataService.fetchCommitsForFeatureBranch(repoId, branchName, fromDate).then(response => {
+      console.log(response);
     });
   }
 }

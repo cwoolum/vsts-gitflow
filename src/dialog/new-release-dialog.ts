@@ -16,7 +16,7 @@ export class NewReleaseDialog {
     this.dataService = new DataService();
   }
 
-  setupDialog(repoSettings: IRepoSettings) {
+  setupDialog(repoSettings: IRepoSettings, newDialogCallback: () => void) {
     $.get("../static/new-release-dialog.html", (dialogTemplate) => {
       let $dialog = $(dialogTemplate);
 
@@ -28,7 +28,7 @@ export class NewReleaseDialog {
         okCallback: (result: string) => {
           this.dataService.createNewFeatureBranch(result, repoSettings.repositoryId)
             .then(response => {
-              console.log(response);
+              newDialogCallback();
             }, err => {
               alert(err.message);
             });
