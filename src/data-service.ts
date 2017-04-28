@@ -7,6 +7,7 @@ import BuildHttpClient = require("TFS/Build/RestClient");
 export class DataService {
     _client: RestClient.GitHttpClient3_1;
     _buildClient: BuildHttpClient.BuildHttpClient3_1;
+    _projectId: string;
 
     constructor() {
         this._client = RestClient.getClient();
@@ -90,10 +91,22 @@ export class DataService {
     }
 
     getAllRepositories() {
-        return this._client.getRepositories();
+        return this._client.getRepositories().then(response => {
+            // Need to populate the project Id manually since the build definitions API has a bug.
+            if (response && response.length) {
+                let firstRepo = response[0];
+                this._projectId = firstRepo.project.id;
+            }
+
+            return response;
+        });
     }
 
     getAllBuildDefinitions() {
-        return this._buildClient.getDefinitions();
+        if (!this._projectId) {
+            throw ("You must call getAllRepositories() first");
+        }
+
+        return this._buildClient.getDefinitions(this._projectId, null, null, null, null, 100);
     }
 }

@@ -74,13 +74,11 @@
             usePlatformScripts: true,
             usePlatformStyles: true
         });
-
-        VSS.require("TFS/Dashboards/WidgetHelpers", function (WidgetHelpers) {
+        
+        VSS.require(["TFS/Dashboards/WidgetHelpers", "../dist/gitflow-config"], function (WidgetHelpers, app) {
             WidgetHelpers.IncludeWidgetStyles();
             WidgetHelpers.IncludeWidgetConfigurationStyles();
-        });
 
-        VSS.require(["../dist/gitflow-config"], function (app) {
             let gitflowConfig = new app.GitflowConfig();
             gitflowConfig.buildGrid().then(() => {
                 VSS.notifyLoadSucceeded();
