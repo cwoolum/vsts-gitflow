@@ -11,8 +11,8 @@ interface SaveRepoConfig {
 
 export class NewRepoDialog {
   dataService: DataService;
-  constructor() {
-    this.dataService = new DataService();
+  constructor(projectId: string) {
+    this.dataService = new DataService(projectId);
   }
 
   setupDialog() {

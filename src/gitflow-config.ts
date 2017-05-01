@@ -12,13 +12,13 @@ export class GitflowConfig {
   grid: Grids.Grid;
   repoSettings: IRepoSettings;
 
-  constructor() {
-    this.dataService = new DataService();
+  constructor(webContext: WebContext) {
+    this.dataService = new DataService(webContext.project.id);
 
-    let repoDialog = new NewRepoDialog();
+    let repoDialog = new NewRepoDialog(webContext.project.id);
     repoDialog.setupDialog();
 
-    let releaseDialog = new NewReleaseDialog();
+    let releaseDialog = new NewReleaseDialog(webContext.project.id);
 
     $("#new-release-btn").click(() => {
       releaseDialog.setupDialog(this.repoSettings, this.setSelectedRepo);

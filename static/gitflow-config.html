@@ -72,14 +72,15 @@
         // Initialize the VSS sdk
         VSS.init({
             usePlatformScripts: true,
-            usePlatformStyles: true
+            usePlatformStyles: true,
+            explicitNotifyLoaded: true
         });
-        
+
         VSS.require(["TFS/Dashboards/WidgetHelpers", "../dist/gitflow-config"], function (WidgetHelpers, app) {
             WidgetHelpers.IncludeWidgetStyles();
             WidgetHelpers.IncludeWidgetConfigurationStyles();
 
-            let gitflowConfig = new app.GitflowConfig();
+            let gitflowConfig = new app.GitflowConfig(VSS.getWebContext());
             gitflowConfig.buildGrid().then(() => {
                 VSS.notifyLoadSucceeded();
             });

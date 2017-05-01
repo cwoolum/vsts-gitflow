@@ -9,7 +9,9 @@ export class DataService {
     _buildClient: BuildHttpClient.BuildHttpClient3_1;
     _projectId: string;
 
-    constructor() {
+    constructor(
+        private projectId: string
+    ) {
         this._client = RestClient.getClient();
         this._buildClient = BuildHttpClient.getClient();
     }
@@ -91,22 +93,11 @@ export class DataService {
     }
 
     getAllRepositories() {
-        return this._client.getRepositories().then(response => {
-            // Need to populate the project Id manually since the build definitions API has a bug.
-            if (response && response.length) {
-                let firstRepo = response[0];
-                this._projectId = firstRepo.project.id;
-            }
-
-            return response;
-        });
+        return this._client.getRepositories();
     }
 
     getAllBuildDefinitions() {
-        if (!this._projectId) {
-            throw ("You must call getAllRepositories() first");
-        }
 
-        return this._buildClient.getDefinitions(this._projectId, null, null, null, null, 100);
+        return this._buildClient.getDefinitions(this.projectId, null, null, null, null, 100);
     }
 }
