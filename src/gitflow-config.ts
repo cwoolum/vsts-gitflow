@@ -6,6 +6,7 @@ import Grids = require("VSS/Controls/Grids");
 import RestClient = require("TFS/VersionControl/GitRestClient");
 import { DataService } from "./data-service";
 import { NewRepoDialog } from "./dialog/new-repo-dialog";
+import { IMenuItemSpec } from "VSS/Controls/Menus";
 
 export class GitflowConfig {
   dataService: DataService;
@@ -50,7 +51,30 @@ export class GitflowConfig {
           { index: 'repoId', hidden: true },
           { text: "Name", index: 'name' },
           { text: "Current Version", index: 'version', width: 200 }
-        ]
+        ],
+        contextMenu: {
+          items: [<IMenuItemSpec>{
+            id: 'delete',
+            text: 'Delete',
+            icon: "icon-delete"
+          }],
+          executeAction: args => {
+            switch (args.get_commandName()) {
+              case "open":
+                break;
+
+              case "delete":
+                if (confirm("Are you sure you want to delete this configuration?")) {
+                  //this.dataService.deleteRepo()
+                }
+                break;
+            }
+          },
+          useBowtieStyle: true
+        },
+        gutter: {
+          contextMenu: true
+        }
       };
 
       this.grid = Controls.create(Grids.Grid, container, gridOptions);

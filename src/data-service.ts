@@ -18,32 +18,11 @@ export class DataService {
 
     createNewFeatureBranch(newVersion: string, repoId: string) {
         return this._client.getBranch(repoId, 'develop').then(branchInfo => {
-            // return this._client.updateRefs([<any>{
-            //     oldObjectId: branchInfo.commit.commitId,
-            //     name: 'refs/heads/' + newVersion,
-            //     sha1IdString: branchInfo.commit.commitId
-            // }], repoId);
-            return this._client.createPush(<any>{
-                refUpdates: [{
-                    name: 'refs/heads/' + newVersion,
-                    oldObjectId: branchInfo.commit.commitId
-                }],
-                commits: [{
-                    "comment": "Updating active tasks, but saving in a new branch.",
-                    "changes": [
-                        {
-                            "changeType": "add",
-                            "item": {
-                                "path": "/" + newVersion + ".md"
-                            },
-                            "newContent": {
-                                "content": "Delete me!",
-                                "contentType": "rawtext"
-                            }
-                        }
-                    ]
-                }]
-            }, repoId).then(response => {
+            return this._client.updateRefs([<any>{
+                newObjectId: branchInfo.commit.commitId,
+                name: 'refs/heads/' + newVersion,
+                oldObjectId: "0000000000000000000000000000000000000000"
+            }], repoId).then(response => {
                 return this.fetchConfigurationForRepository(repoId).then(repoConfig => {
                     repoConfig.branchId = newVersion;
                     return this.saveConfigurationForRepository(repoId, repoConfig);
@@ -51,6 +30,16 @@ export class DataService {
             });
         });
     }
+
+    async deleteRepo(repoId: string) {
+        let repos = await this.fetchConfiguredRepos();
+        delete repos[repoId];
+        this.saveConfiguredRepos(repos);
+
+        let dataService = <IExtensionDataService>(await VSS.getService(VSS.ServiceIds.ExtensionData));
+        dataService.setValue(repoId, null);
+    }
+
 
     fetchCommitsForFeatureBranch(repoId: string, branchName: string, fromDate: string) {
         return this._client.getCommits(repoId, <any>{
