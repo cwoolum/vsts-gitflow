@@ -22,7 +22,31 @@ export class GitflowConfig {
     let releaseDialog = new NewReleaseDialog(webContext.project.id);
 
     $("#new-release-btn").click(() => {
-      releaseDialog.setupDialog(this.repoSettings, this.setSelectedRepo);
+      releaseDialog.setupDialog(this.repoSettings, () => {
+        let selectedIndex = this.grid.getSelectedDataIndex();
+        let item = this.grid._dataSource[selectedIndex];
+        this.dataService.fetchConfigurationForRepository(item.repoId).then(repoSettings => {
+          this.repoSettings = repoSettings;
+          if (repoSettings.branchId) {
+            $('#manage-release').show();
+            $('#new-release-btn').hide();
+
+            $('#next-version-number').html(repoSettings.branchId);
+            this.getCommits(item.repoId, repoSettings.branchId, new Date().toISOString());
+          } else {
+            $('#manage-release').hide();
+            $('#new-release-btn').show();
+          }
+        });
+      });
+    });
+
+    $('#cancel-button').click(() => {
+      if (confirm('Are you sure you want to cancel this release?')) {
+        this.dataService.clearFeatureBranch(this.repoSettings.repositoryId).then(() => {
+          this.setSelectedRepo();
+        });
+      }
     });
   }
 

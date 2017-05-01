@@ -31,6 +31,20 @@ export class DataService {
         });
     }
 
+    clearFeatureBranch(repoId: string) {
+        // return this._client..updateRefs([<any>{
+        //     newObjectId: branchInfo.commit.commitId,
+        //     name: 'refs/heads/' + newVersion,
+        //     oldObjectId: "0000000000000000000000000000000000000000"
+        // }], repoId).then(response => {
+        return this.fetchConfigurationForRepository(repoId).then(repoConfig => {
+            repoConfig.branchId = undefined;
+            return this.saveConfigurationForRepository(repoId, repoConfig);
+        });
+        //});
+
+    }
+
     async deleteRepo(repoId: string) {
         let repos = await this.fetchConfiguredRepos();
         delete repos[repoId];
