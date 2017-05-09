@@ -81,9 +81,13 @@ export class DataService {
     fetchCommitsForMasterBranchSinceFeature(repoId: string, branchName: string, fromDate: string) {
         return this._client.getCommits(repoId, <any>{
             compareVersion: {
+                version: 'master',
+                versionType: GitVersionType.Branch
+            },
+            itemVersion: {
                 version: branchName,
                 versionType: GitVersionType.Branch
-            },           
+            },
             fromDate: fromDate
         });
     }

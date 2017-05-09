@@ -32,8 +32,7 @@ export class GitflowConfig {
             $('#new-release-btn').hide();
 
             $('#next-version-number').html(repoSettings.branchId);
-            this.getCommits(item.repoId, repoSettings.branchId, new Date().toISOString());
-
+            
             this.dataService.fetchPullRequestDetails(repoSettings.pullRequestId).then(details => {
               $('#pr-status').html(details.status.toString());
             });
@@ -132,12 +131,25 @@ export class GitflowConfig {
         $('#new-release-btn').hide();
 
         $('#next-version-number').html(repoSettings.branchId);
-        this.getCommits(item.repoId, repoSettings.branchId, new Date(repoSettings.branchCreateDate).toISOString()).then(response => {
+        this.dataService.fetchCommitsForFeatureBranch(item.repoId, repoSettings.branchId, new Date(repoSettings.branchCreateDate).toISOString()).then(response => {
           let $commitsTable = $('.commits-since-creation tbody');
           $commitsTable.html('');
           response.forEach(element => {
             var $tr = $('<tr>').append(
-              $('<td>').text(element.commitId),
+              $('<td>').text(element.commitId.slice(0,8)),
+              $('<td>').text(element.comment)
+            );
+
+            $commitsTable.append($tr);
+          });
+        });
+
+        this.dataService.fetchCommitsForMasterBranchSinceFeature(item.repoId, repoSettings.branchId, new Date(repoSettings.branchCreateDate).toISOString()).then(response => {
+          let $commitsTable = $('.forward-commits tbody');
+          $commitsTable.html('');
+          response.forEach(element => {
+            var $tr = $('<tr>').append(
+              $('<td>').text(element.commitId.slice(0,8)),
               $('<td>').text(element.comment)
             );
 
@@ -154,9 +166,5 @@ export class GitflowConfig {
         $('#new-release-btn').show();
       }
     });
-  }
-
-  private getCommits(repoId: string, branchName: string, fromDate: string) {
-    return this.dataService.fetchCommitsForFeatureBranch(repoId, branchName, fromDate);
   }
 }

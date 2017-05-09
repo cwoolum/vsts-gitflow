@@ -70,3 +70,12 @@ td {
 .buttons-box {
     margin-top: 10px;
 }
+
+.rightPane .gitflow-fieldset {
+    border: 1px solid #c8c8c8;
+    padding: 5px;
+}
+
+.gitflow-fieldset legend {
+    padding: 5px !important;
+}
