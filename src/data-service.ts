@@ -23,25 +23,35 @@ export class DataService {
                 name: 'refs/heads/' + newVersion,
                 oldObjectId: "0000000000000000000000000000000000000000"
             }], repoId).then(response => {
-                return this.fetchConfigurationForRepository(repoId).then(repoConfig => {
-                    repoConfig.branchId = newVersion;
-                    return this.saveConfigurationForRepository(repoId, repoConfig);
+                return this._client.createPullRequest(<any>{
+                    sourceRefName: `refs/heads/${newVersion}`,
+                    targetRefName: `refs/heads/master`,
+                    title: `Merge version ${newVersion} to master`,
+                    description: ''
+                }, repoId).then(createPullRequestResponse => {
+                    return this.fetchConfigurationForRepository(repoId).then(repoConfig => {
+                        repoConfig.branchId = newVersion;
+                        repoConfig.branchCreateDate = new Date();
+                        repoConfig.pullRequestId = createPullRequestResponse.codeReviewId;
+                        return this.saveConfigurationForRepository(repoId, repoConfig);
+                    });
                 });
             });
         });
     }
 
     clearFeatureBranch(repoId: string) {
-        // return this._client..updateRefs([<any>{
-        //     newObjectId: branchInfo.commit.commitId,
-        //     name: 'refs/heads/' + newVersion,
-        //     oldObjectId: "0000000000000000000000000000000000000000"
-        // }], repoId).then(response => {
+        //// return this._client..updateRefs([<any>{
+        ////     newObjectId: branchInfo.commit.commitId,
+        ////     name: 'refs/heads/' + newVersion,
+        ////     oldObjectId: "0000000000000000000000000000000000000000"
+        //// }], repoId).then(response => {
         return this.fetchConfigurationForRepository(repoId).then(repoConfig => {
             repoConfig.branchId = undefined;
+            repoConfig.branchCreateDate = null;
             return this.saveConfigurationForRepository(repoId, repoConfig);
         });
-        //});
+        ////});
 
     }
 
@@ -54,13 +64,26 @@ export class DataService {
         dataService.setValue(repoId, null);
     }
 
+    fetchPullRequestDetails(pullRequestId: number) {
+        return this._client.getPullRequestById(pullRequestId);
+    }
 
     fetchCommitsForFeatureBranch(repoId: string, branchName: string, fromDate: string) {
+        return this._client.getCommits(repoId, <any>{
+            itemVersion: {
+                version: branchName,
+                versionType: GitVersionType.Branch
+            },
+            fromDate: fromDate
+        });
+    }
+
+    fetchCommitsForMasterBranchSinceFeature(repoId: string, branchName: string, fromDate: string) {
         return this._client.getCommits(repoId, <any>{
             compareVersion: {
                 version: branchName,
                 versionType: GitVersionType.Branch
-            },
+            },           
             fromDate: fromDate
         });
     }

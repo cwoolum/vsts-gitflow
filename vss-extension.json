@@ -1,7 +1,7 @@
     {
         "manifestVersion": 1,
         "id": "vsts-gitflow",
-        "version": "0.1.119",
+        "version": "0.1.132",
         "name": "VSTS GitFlow",
         "description": "",
         "publisher": "ChrisWoolum",

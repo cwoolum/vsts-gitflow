@@ -27,14 +27,14 @@
 
             <div id="manage-release">
                 <div>
-                    Next Version: <strong id="next-version-number"></strong>
+                    Pending Version: <strong id="next-version-number"></strong>
                 </div>
                 <div>
                     <fieldset>
                         <legend>
                             Commits Since Creation
                         </legend>
-                        <table>
+                        <table class="table commits-since-creation">
                             <thead>
                                 <th>Commit Hash</th>
                                 <th>Comments</th>
@@ -50,19 +50,23 @@
                         <legend>
                             Forward Commits In Master
                         </legend>
-                        <table>
+                        <table class="table forward-commits">
                             <thead>
                                 <th>Commit Hash</th>
                                 <th>Comments</th>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td colspan="2">None</td>
+                                </tr>
                             </tbody>
                         </table>
                     </fieldset>
                 </div>
 
-                <div>
-                    <button id="complete-button">Complete</button>
+                Pull Request Status: <span id="pr-status"></span>
+                <div class="buttons-box">
+                    <button id="complete-button" class="disabled" disabled>Complete</button>
                     <button id="cancel-button">Cancel</button>
                 </div>
             </div>

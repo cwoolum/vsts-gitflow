@@ -42,13 +42,19 @@ export class NewReleaseDialog {
 
         switch ($(this).val()) {
           case 'major':
-            nextVersion = (repoSettings.currentVersionMajor + 1) + '.' + repoSettings.currentVersionMinor + '.' + repoSettings.currentVersionPatch;
+            nextVersion = (repoSettings.currentVersionMajor + 1) + 
+            '.' + repoSettings.currentVersionMinor + 
+            '.' + repoSettings.currentVersionPatch;
             break;
           case 'minor':
-            nextVersion = repoSettings.currentVersionMajor + '.' + (repoSettings.currentVersionMinor + 1) + '.' + repoSettings.currentVersionPatch;
+            nextVersion = repoSettings.currentVersionMajor + 
+            '.' + (repoSettings.currentVersionMinor + 1) + 
+            '.' + repoSettings.currentVersionPatch;
             break;
           case 'patch':
-            nextVersion = repoSettings.currentVersionMajor + '.' + repoSettings.currentVersionMinor + '.' + (repoSettings.currentVersionPatch + 1);
+            nextVersion = repoSettings.currentVersionMajor + 
+            '.' + repoSettings.currentVersionMinor + 
+            '.' + (repoSettings.currentVersionPatch + 1);
             break;
         }
 

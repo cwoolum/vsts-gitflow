@@ -42,3 +42,31 @@
 #manage-release {
     display: none;
 }
+
+legend {
+    margin-top: 10px;
+}
+
+.table {
+    margin-top: 5px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th {
+    border-bottom: 1px solid #c8c8c8;
+}
+
+.table th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+.buttons-box {
+    margin-top: 10px;
+}
