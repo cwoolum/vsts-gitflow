@@ -5,6 +5,9 @@ This is a VSTS extension that enables you to provide GitFlow functionality from 
 
 So you want to help develop this plugin?? Well, you are awesome! Let me help you out. Here are a list of useful commands.
 
+Make sure you have the tfs cli using ```npm install -g tfx-cli```
+
+
 1. ```npm run build```
     This one is pretty basic. It just compiles all of the TypeScript and packages the extension.
 
