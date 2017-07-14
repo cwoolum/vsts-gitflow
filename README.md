@@ -1,6 +1,8 @@
 # vsts-gitflow
 This is a VSTS extension that enables you to provide GitFlow functionality from a manageable dashboard
 
+![build](https://travis-ci.org/cwoolum/vsts-gitflow.svg?branch=master)
+
 ## Contributing
 
 So you want to help develop this plugin?? Well, you are awesome! Let me help you out. Here are a list of useful commands.
