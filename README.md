@@ -1,4 +1,6 @@
 # vsts-gitflow
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/cwoolum/vsts-gitflow.svg)](https://greenkeeper.io/)
 This is a VSTS extension that enables you to provide GitFlow functionality from a manageable dashboard
 
 ![build](https://travis-ci.org/cwoolum/vsts-gitflow.svg?branch=master)
