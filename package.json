@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "require-html": "^1.0.0",
-    "vss-web-extension-sdk": "^2.117.0"
+    "vss-web-extension-sdk": "^4.125.2"
   }
 }
