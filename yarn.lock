@@ -2,47 +2,56 @@
 # yarn lockfile v1
 
 
-"@types/jquery@*", "@types/jquery@^2.0.34":
+"@types/jquery@*":
   version "2.0.41"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.41.tgz#b87ba051011f99edbe586d8f97282e7786e01a6d"
 
-"@types/jqueryui@^1.11.31":
-  version "1.11.32"
-  resolved "https://registry.yarnpkg.com/@types/jqueryui/-/jqueryui-1.11.32.tgz#5a21bdedd6517c21baef754889931b7d27b5fb3e"
+"@types/jquery@>=2.0.48":
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.10.tgz#d0afaec7ee55f591992e74c607df5dc7cd9c76ab"
+
+"@types/jqueryui@>=1.11.34":
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/@types/jqueryui/-/jqueryui-1.12.4.tgz#a9344871b83cb3d83926615efc4007060bb646d7"
   dependencies:
     "@types/jquery" "*"
 
-"@types/knockout@^3.4.38":
-  version "3.4.40"
-  resolved "https://registry.yarnpkg.com/@types/knockout/-/knockout-3.4.40.tgz#5610286f18d0fbacac7dd9019b6e750355ed1055"
+"@types/knockout@^3.4.49":
+  version "3.4.59"
+  resolved "https://registry.yarnpkg.com/@types/knockout/-/knockout-3.4.59.tgz#87911eee72222141c76f6fc7c63115815b049fef"
+
+"@types/mousetrap@~1.5.34":
+  version "1.5.34"
+  resolved "https://registry.yarnpkg.com/@types/mousetrap/-/mousetrap-1.5.34.tgz#22b338d9c4bcdfd8f81c30684aefeb04a4727168"
 
 "@types/q@0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
 
-"@types/react@^0.14.54":
-  version "0.14.57"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-0.14.57.tgz#1878a8654fafdd1d381b8457292b6433498c5b62"
+"@types/react@^15.6.12":
+  version "15.6.19"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.19.tgz#a5de18afe65b0f29767328836b48c498a5d3a91b"
 
-"@types/requirejs@^2.1.28":
-  version "2.1.29"
-  resolved "https://registry.yarnpkg.com/@types/requirejs/-/requirejs-2.1.29.tgz#bc48bc833c079c2c24ba6afbca6d3a03b3f4e2f3"
+"@types/requirejs@>=2.1.28":
+  version "2.1.31"
+  resolved "https://registry.yarnpkg.com/@types/requirejs/-/requirejs-2.1.31.tgz#a24eaa0ee4f6b84feb8f521ca6550d48490b2bc6"
 
 require-html@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/require-html/-/require-html-1.0.0.tgz#24d6b4f85635e4d12b5d8dac970bf3a0fb6522cc"
 
-typescript@~2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
+typescript@~2.5.2:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.3.tgz#df3dcdc38f3beb800d4bc322646b04a3f6ca7f0d"
 
-vss-web-extension-sdk@^2.114.0:
-  version "2.114.0"
-  resolved "https://registry.yarnpkg.com/vss-web-extension-sdk/-/vss-web-extension-sdk-2.114.0.tgz#434c9bc3fc5bfed40d192a47d12ba4ac4a51c22d"
+vss-web-extension-sdk@^5.141.0:
+  version "5.141.0"
+  resolved "https://registry.yarnpkg.com/vss-web-extension-sdk/-/vss-web-extension-sdk-5.141.0.tgz#368b6fcaf5e7ab849f4fb98689b6694d78224ccf"
   dependencies:
-    "@types/jquery" "^2.0.34"
-    "@types/jqueryui" "^1.11.31"
-    "@types/knockout" "^3.4.38"
+    "@types/jquery" ">=2.0.48"
+    "@types/jqueryui" ">=1.11.34"
+    "@types/knockout" "^3.4.49"
+    "@types/mousetrap" "~1.5.34"
     "@types/q" "0.0.32"
-    "@types/react" "^0.14.54"
-    "@types/requirejs" "^2.1.28"
+    "@types/react" "^15.6.12"
+    "@types/requirejs" ">=2.1.28"
